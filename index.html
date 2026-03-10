@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RDC Learning Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green:        #1DB347;
+      --green-dark:   #178A37;
+      --green-deeper: #0F6428;
+      --green-light:  #F0FBF3;
+      --green-mid:    #D1F0DA;
+      --navy:         #1A2A3A;
+      --navy-mid:     #2C3E50;
+      --grey-dark:    #4A5568;
+      --grey-mid:     #718096;
+      --grey-light:   #E2E8F0;
+      --grey-bg:      #F7F8FA;
+      --white:        #FFFFFF;
+      --shadow-sm:    0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md:    0 8px 30px rgba(0,0,0,0.12);
+      --shadow-lg:    0 20px 60px rgba(0,0,0,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--green);
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+
+    .header-logo img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 32px;
+      background: var(--grey-light);
+    }
+
+    .header-portal-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .header-link {
+      font-size: 13px;
+      color: var(--grey-mid);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .header-link:hover { color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0a1f0d 0%, #0f2d14 50%, #0d261a 100%);
+      padding: 90px 40px 80px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* grid pattern */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(29,179,71,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(29,179,71,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* green bottom accent */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-deeper), var(--green), #5DD882, var(--green), var(--green-deeper));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .hero-logo-wrap {
+      margin-bottom: 36px;
+      animation: fadeDown 0.7s ease both;
+    }
+
+    .hero-logo-wrap img {
+      height: 54px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(29,179,71,0.15);
+      border: 1px solid rgba(29,179,71,0.45);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      animation: fadeDown 0.7s 0.1s ease both;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    .hero-badge span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7EE89A;
+    }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      animation: fadeDown 0.7s 0.15s ease both;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--green);
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.8;
+      max-width: 540px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+      animation: fadeDown 0.7s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      animation: fadeDown 0.7s 0.25s ease both;
+    }
+
+    .hero-cta:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ── STATS ── */
+    .stats-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-light);
+      padding: 28px 40px;
+    }
+
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 8px 48px;
+      border-right: 1px solid var(--grey-light);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+      margin-top: 4px;
+    }
+
+    /* ── GAMES SECTION ── */
+    .games-section {
+      background: var(--grey-bg);
+      padding: 72px 40px 90px;
+    }
+
+    .section-top {
+      max-width: 1200px;
+      margin: 0 auto 52px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .section-count {
+      font-size: 13px;
+      color: var(--grey-mid);
+      font-weight: 600;
+    }
+
+    /* ── CARDS ── */
+    .cards-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--grey-light);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: cardIn 0.5s ease forwards;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* top accent bar that fills on hover */
+    .card-bar {
+      height: 4px;
+      background: var(--grey-light);
+      transition: background 0.3s;
+    }
+    .card:hover .card-bar { background: var(--green); }
+
+    /* card visual */
+    .card-visual {
+      height: 148px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-visual-1 { background: linear-gradient(135deg, #F0FBF3 0%, #D1F0DA 100%); }
+    .card-visual-2 { background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%); }
+    .card-visual-3 { background: linear-gradient(135deg, #FFF8F0 0%, #FDE8D0 100%); }
+
+    .card-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .card-num {
+      position: absolute;
+      right: 14px;
+      bottom: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 80px;
+      font-weight: 900;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+    }
+
+    .card-icon-wrap {
+      position: relative;
+      z-index: 1;
+      width: 66px;
+      height: 66px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-icon-wrap { transform: scale(1.08) rotate(-3deg); }
+
+    .icon-green  { background: var(--green); }
+    .icon-blue   { background: #4F46E5; }
+    .icon-amber  { background: #D97706; }
+
+    /* card body */
+    .card-body {
+      padding: 22px 24px 14px;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-deeper);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+
+    .card-tag-blue  { background: #EEF2FF; color: #4338CA; }
+    .card-tag-amber { background: #FFFBEB; color: #92400E; }
+
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--grey-dark);
+      line-height: 1.75;
+    }
+
+    /* card footer */
+    .card-footer {
+      padding: 14px 24px 20px;
+      border-top: 1px solid var(--grey-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-url {
+      font-size: 11px;
+      color: #A0AEC0;
+      font-family: monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 160px;
+    }
+
+    .launch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .launch-btn:hover {
+      background: var(--green-dark);
+      transform: scale(1.03);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 4px solid var(--green);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+      margin-bottom: 12px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .footer-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--green);
+      margin: 0 auto 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--green); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      .hero { padding: 60px 24px 60px; }
+      .stat-item { padding: 8px 24px; }
+      .games-section { padding: 48px 20px 60px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="https://www.rdc.in" class="header-logo" target="_blank">
+        <img src="https://www.rdc.in/img/logo.png" alt="RDC Concrete Logo" />
+        <div class="header-divider"></div>
+        <span class="header-portal-label">Learning Arena</span>
+      </a>
+      <a href="https://www.rdc.in" class="header-link" target="_blank">Visit rdc.in →</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="https://www.rdc.in/img/logo.png" alt="RDC Concrete" />
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Learning &amp; Development Portal</span>
+      </div>
+      <h1 class="hero-title"><em>RDC</em> <span style="color:var(--white);">Learning<br/>Arena</span></h1>
+      <p class="hero-subtitle">
+        Sharpen your skills, test your knowledge, and compete with peers — 
+        interactive learning tools built for RDC's 1,500+ people across 140+ plants.
+      </p>
+      <a href="#games" class="hero-cta">Explore Tools ↓</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">140+</div>
+        <div class="stat-label">Plants</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1,500+</div>
+        <div class="stat-label">Employees</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Learning Tools</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Pan India</div>
+        <div class="stat-label">Reach</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMES -->
+  <section class="games-section" id="games">
+    <div class="section-top">
+      <div>
+        <p class="section-label">Interactive Tools</p>
+        <h2 class="section-title">Choose Your Arena</h2>
+      </div>
+      <span class="section-count">3 tools available</span>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: RDC Assessments -->
+      <a class="card" href="https://rdc-assessments-production.up.railway.app" target="_blank">
+        <div class="card-bar"></div>
+        <div class="card-visual card-visual-1">
+          <div class="card-num">01</div>
+          <div class="card-icon-wrap icon-green">📋</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Trainee Evaluation</span>
+          <h3 class="card-title">RDC Assessments</h3>
+          <p class="card-desc">
+            AI-powered monthly progress evaluation for GETs and DETs. Submit reports, receive structured SARTAJ-based feedback, and track development milestones across your training journey.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-url">rdc-assessments-production…</span>
+          <span class="launch-btn">Launch →</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Business Simulation -->
+      <a class="card" href="https://business-simulation-game-v3-production.up.railway.app" target="_blank">
+        <div class="card-bar"></div>
+        <div class="card-visual card-visual-2">
+          <div class="card-num">02</div>
+          <div class="card-icon-wrap icon-blue">🏗️</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag card-tag-blue">Strategy Game</span>
+          <h3 class="card-title">Business Simulation</h3>
+          <p class="card-desc">
+            Run a virtual RMC plant and compete in a live market. Price your concrete, manage costs, win orders, and outperform rivals — a multiplayer strategy game mirroring real RMC business decisions.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-url">business-simulation-game-v3…</span>
+          <span class="launch-btn">Launch →</span>
+        </div>
+      </a>
+
+      <!-- Card 3: RDC DISHA Biz Quiz -->
+      <a class="card" href="https://web-production-518adb.up.railway.app" target="_blank">
+        <div class="card-bar"></div>
+        <div class="card-visual card-visual-3">
+          <div class="card-num">03</div>
+          <div class="card-icon-wrap icon-amber">🧠</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag card-tag-amber">Knowledge Quiz</span>
+          <h3 class="card-title">RDC DISHA Biz Quiz</h3>
+          <p class="card-desc">
+            Test your mastery of RMC operations, quality standards, and safety protocols. Timed multiple-choice questions with instant scoring — the DISHA quiz platform for RDC employees.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-url">web-production-518adb…</span>
+          <span class="launch-btn">Launch →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="https://www.rdc.in/img/logo.png" alt="RDC Concrete" />
+    </div>
+    <p class="footer-tagline">RDC Concrete (India) Limited · bhoon.org</p>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="https://www.rdc.in" target="_blank">Main Website</a>
+      <a href="https://www.rdc.in/careers" target="_blank">Careers</a>
+      <a href="https://www.rdc.in/contactus" target="_blank">Contact</a>
+      <a href="https://www.rdc.in/privacy-policy" target="_blank">Privacy Policy</a>
+    </div>
+    <p class="footer-copy">© 2026 RDC Concrete (India) Limited. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
